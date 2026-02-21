@@ -414,3 +414,11 @@ body.painting-page {
   background-attachment: fixed;
   background-repeat: no-repeat;
 }
+
+html, body {
+  min-height: 100%;
+}
+
+body.painting-page{
+  background: url("images/painting-backgound-forest.png") center/cover no-repeat fixed !important;
+}
