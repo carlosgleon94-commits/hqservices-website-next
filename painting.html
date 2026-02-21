@@ -49,5 +49,39 @@
 <div style="text-align:center; margin:40px;">
   <a href="index.html">⬅ Back to Home</a>
 </div>
+<!-- Lightbox Popup -->
+<div id="lightbox" class="lightbox-overlay">
+  <span id="lightboxClose" class="lightbox-close">&times;</span>
+  <img id="lightboxImg" src="" alt="Expanded image">
+</div>
 
-</body></html>
+<script>
+  const overlay = document.getElementById("lightbox");
+  const overlayImg = document.getElementById("lightboxImg");
+  const closeBtn = document.getElementById("lightboxClose");
+
+  document.querySelectorAll(".painting-gallery img").forEach((img) => {
+    img.addEventListener("click", () => {
+      overlayImg.src = img.src;
+      overlay.classList.add("open");
+    });
+  });
+
+  function closeLightbox() {
+    overlay.classList.remove("open");
+    overlayImg.src = "";
+  }
+
+  closeBtn.addEventListener("click", closeLightbox);
+
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) closeLightbox();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeLightbox();
+  });
+</script>
+
+</body>
+</html>
