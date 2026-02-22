@@ -23,7 +23,7 @@ body {
 }
 
 header {
-  background-color: white;
+  background-color: ;
   position: static;
   width: 100%;
   top: 0;
@@ -421,4 +421,29 @@ html, body {
 
 body.painting-page{
   background: url("images/painting-backgound-forest.png") center/cover no-repeat fixed !important;
+}
+
+.painting-page {
+  background-image: url("images/forest.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: white;
+}
+
+.painting-header {
+  text-align: center;
+  padding: 80px 20px 40px;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.painting-header h1 {
+  font-size: 42px;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.painting-header p {
+  font-size: 18px;
+  opacity: 0.9;
 }
