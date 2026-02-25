@@ -54,14 +54,8 @@ a {
   margin: 0 auto;
 }
 
-/* Remove old top bar spacing since we're merging */
-.hero {
-  /* was margin-top: 100px; */
-  margin-top: 0;
-}
-
 /* =========================
-   BASE HEADER STYLES (needed)
+   BASE HEADER STYLES (clean)
    ========================= */
 
 .site-header {
@@ -78,9 +72,18 @@ a {
   width: min(var(--max), calc(100% - 32px));
   margin: 0 auto;
   padding: 12px 0;
+  position: relative; /* ✅ needed for mobile dropdown absolute positioning */
 }
 
-/* logo block */
+/* merged header layout */
+.header-merged {
+  display: grid;
+  grid-template-columns: auto 1fr auto; /* left | center | right */
+  align-items: center;
+  gap: 16px;
+}
+
+/* logo */
 .logo {
   display: flex;
   align-items: center;
@@ -106,69 +109,7 @@ a {
   letter-spacing: 0.2px;
 }
 
-/* nav links */
-.nav-links a {
-  font-weight: 700;
-  color: var(--dark-blue);
-  opacity: 0.92;
-}
-
-.nav-links a:hover {
-  opacity: 1;
-  text-decoration: underline;
-  text-underline-offset: 4px;
-}
-
-/* burger */
-.burger {
-  display: none;
-  font-size: 28px;
-  cursor: pointer;
-  background: transparent;
-  border: 0;
-  padding: 8px 10px;
-  border-radius: 12px;
-}
-
-.burger:hover {
-  background: rgba(255, 255, 255, 0.55);
-  border: 1px solid rgba(31, 35, 40, 0.10);
-}
-
-/* Mobile dropdown */
-@media (max-width: 768px) {
-  .burger {
-    display: block;
-  }
-
-  .nav-links {
-    display: none;
-    position: absolute;
-    right: 16px;
-    top: 68px;
-    flex-direction: column;
-    gap: 12px;
-    padding: 14px;
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.90);
-    border: 1px solid rgba(31, 35, 40, 0.12);
-    box-shadow: var(--shadow-soft);
-    min-width: 180px;
-  }
-
-  .nav-links.active {
-    display: flex;
-  }
-}
-/* Merged header layout */
-.header-merged {
-  display: grid;
-  grid-template-columns: auto 1fr auto; /* left | center | right */
-  align-items: center;
-  gap: 16px;
-}
-
-/* Center call now */
+/* center call now */
 .header-center {
   justify-self: center;
   text-align: center;
@@ -184,38 +125,53 @@ a {
   backdrop-filter: blur(10px);
 }
 
-.header-center .call-text {
-  opacity: 0.95;
-}
-
 .header-center .call-link {
   color: var(--green-light);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 
-/* Push nav to the far right (and make it feel more right-aligned) */
+/* nav desktop */
 .nav-links {
   justify-self: end;
   display: flex;
   gap: 22px;
 }
 
-/* Nudge logo a bit left / tighter */
-.logo-link {
-  gap: 12px;
+.nav-links a {
+  font-weight: 700;
+  color: var(--dark-blue);
+  opacity: 0.92;
 }
 
-/* Keep burger on far right on desktop too */
+.nav-links a:hover {
+  opacity: 1;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* burger */
 .burger {
+  display: none;
   justify-self: end;
+  font-size: 28px;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  padding: 8px 10px;
+  border-radius: 12px;
 }
 
-/* Mobile behavior */
+.burger:hover {
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(31, 35, 40, 0.10);
+}
+
+/* mobile */
 @media (max-width: 768px) {
   .header-merged {
-    grid-template-columns: auto auto; /* left | burger */
-    grid-template-rows: auto auto;    /* row1: logo + burger, row2: call */
+    grid-template-columns: auto auto; /* logo | burger */
+    grid-template-rows: auto auto;    /* row2 holds call now */
   }
 
   .header-center {
@@ -223,6 +179,31 @@ a {
     justify-self: center;
     margin-top: 6px;
   }
+
+  .burger {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    right: 16px;
+    top: 100%;
+    margin-top: 10px;
+    flex-direction: column;
+    gap: 12px;
+    padding: 14px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.90);
+    border: 1px solid rgba(31, 35, 40, 0.12);
+    box-shadow: var(--shadow-soft);
+    min-width: 180px;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+} /* closes the @mediablock */
 
 /* HERO (uses your existing images/hero_img.png) */
 .hero {
