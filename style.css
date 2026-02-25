@@ -60,6 +60,106 @@ a {
   margin-top: 0;
 }
 
+/* =========================
+   BASE HEADER STYLES (needed)
+   ========================= */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  background: rgba(244, 241, 236, 0.72);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(31, 35, 40, 0.10);
+}
+
+.header-inner {
+  width: min(var(--max), calc(100% - 32px));
+  margin: 0 auto;
+  padding: 12px 0;
+}
+
+/* logo block */
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo img {
+  height: 52px;
+  width: auto;
+  display: block;
+}
+
+.company-name {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--dark-blue);
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 0.2px;
+}
+
+/* nav links */
+.nav-links a {
+  font-weight: 700;
+  color: var(--dark-blue);
+  opacity: 0.92;
+}
+
+.nav-links a:hover {
+  opacity: 1;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* burger */
+.burger {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  padding: 8px 10px;
+  border-radius: 12px;
+}
+
+.burger:hover {
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(31, 35, 40, 0.10);
+}
+
+/* Mobile dropdown */
+@media (max-width: 768px) {
+  .burger {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    right: 16px;
+    top: 68px;
+    flex-direction: column;
+    gap: 12px;
+    padding: 14px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.90);
+    border: 1px solid rgba(31, 35, 40, 0.12);
+    box-shadow: var(--shadow-soft);
+    min-width: 180px;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+}
 /* Merged header layout */
 .header-merged {
   display: grid;
@@ -124,10 +224,6 @@ a {
     margin-top: 6px;
   }
 
-  .nav-links {
-    top: 120px; /* adjust dropdown position because header height changed */
-  }
-}
 /* HERO (uses your existing images/hero_img.png) */
 .hero {
   min-height: 58vh;
