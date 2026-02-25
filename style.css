@@ -69,9 +69,8 @@ a {
 }
 
 .header-inner {
-  width: min(var(--max), calc(100% - 32px));
-  margin: 0 auto;
-  padding: 12px 0;
+  width: 100%;
+  padding: 12px 12px;
   position: relative; /* ✅ needed for mobile dropdown absolute positioning */
 }
 
