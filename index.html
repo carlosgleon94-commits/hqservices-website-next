@@ -24,11 +24,34 @@
 
   <body>
     <!-- TOP BAR -->
-    <div id="top-bar">
-      Call Now! <a href="tel:7069823930">706-982-3930</a>
+    <header class="site-header">
+  <div class="header-inner header-merged">
+    <!-- LEFT: Logo + name -->
+    <div class="logo">
+      <a href="index.html" class="logo-link">
+        <img src="images/header.png" alt="High Quality Services Logo" />
+        <span class="company-name">High Quality Services</span>
+      </a>
     </div>
 
-    <!-- HEADER -->
+    <!-- CENTER: Call now -->
+    <div class="header-center">
+      <span class="call-text">Call Now!</span>
+      <a class="call-link" href="tel:7069823930">706-982-3930</a>
+    </div>
+
+    <!-- RIGHT: nav + burger -->
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false">
+      &#9776;
+    </button>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>    <!-- HEADER -->
     <header class="site-header">
       <div class="header-inner">
         <div class="logo">
