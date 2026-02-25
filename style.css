@@ -54,118 +54,80 @@ a {
   margin: 0 auto;
 }
 
-/* TOP BAR */
-#top-bar {
-  background-color: var(--green-dark);
-  color: white;
-  padding: 8px 20px;
-  text-align: center;
-  font-weight: bold;
+/* Remove old top bar spacing since we're merging */
+.hero {
+  /* was margin-top: 100px; */
+  margin-top: 0;
 }
 
-#top-bar a {
+/* Merged header layout */
+.header-merged {
+  display: grid;
+  grid-template-columns: auto 1fr auto; /* left | center | right */
+  align-items: center;
+  gap: 16px;
+}
+
+/* Center call now */
+.header-center {
+  justify-self: center;
+  text-align: center;
+  font-weight: 800;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: rgba(21, 54, 35, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(10px);
+}
+
+.header-center .call-text {
+  opacity: 0.95;
+}
+
+.header-center .call-link {
   color: var(--green-light);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 
-/* HEADER (fixes your empty background-color) */
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: rgba(18, 23, 55, 0.18);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.16);
-}
-
-.header-inner {
-  width: min(var(--max), calc(100% - 32px));
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 0;
-  flex-wrap: wrap;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.logo-link {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.logo img {
-  height: 50px;
-  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.25));
-}
-
-.company-name {
-  font-size: 20px;
-  font-weight: 700;
-  color: white;
-  font-family: "Poppins", sans-serif;
-}
-
+/* Push nav to the far right (and make it feel more right-aligned) */
 .nav-links {
+  justify-self: end;
   display: flex;
-  gap: 20px;
+  gap: 22px;
 }
 
-.nav-links a {
-  color: rgba(255, 255, 255, 0.92);
-  font-weight: 600;
+/* Nudge logo a bit left / tighter */
+.logo-link {
+  gap: 12px;
 }
 
-.nav-links a:hover {
-  opacity: 1;
-}
-
+/* Keep burger on far right on desktop too */
 .burger {
-  display: none;
-  font-size: 22px;
-  cursor: pointer;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: rgba(255, 255, 255, 0.08);
-  color: #fff;
-  border-radius: 12px;
-  padding: 10px 12px;
+  justify-self: end;
 }
 
-/* MOBILE NAV */
+/* Mobile behavior */
 @media (max-width: 768px) {
+  .header-merged {
+    grid-template-columns: auto auto; /* left | burger */
+    grid-template-rows: auto auto;    /* row1: logo + burger, row2: call */
+  }
+
+  .header-center {
+    grid-column: 1 / -1;
+    justify-self: center;
+    margin-top: 6px;
+  }
+
   .nav-links {
-    display: none;
-    position: absolute;
-    top: 108px;
-    left: 0;
-    width: 100%;
-    flex-direction: column;
-    background: rgba(18, 23, 55, 0.92);
-    padding: 10px 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
-  }
-
-  .nav-links.active {
-    display: flex;
-  }
-
-  .burger {
-    display: block;
-  }
-
-  .nav-links a {
-    margin: 10px 0;
+    top: 120px; /* adjust dropdown position because header height changed */
   }
 }
-
 /* HERO (uses your existing images/hero_img.png) */
 .hero {
   min-height: 58vh;
