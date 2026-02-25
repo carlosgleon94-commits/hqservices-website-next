@@ -1,4 +1,4 @@
-/* styles.css */
+/* style.css (merged: new homepage look + keeps painting page + glightbox tweaks) */
 
 :root {
   --green-dark: #153623;
@@ -7,6 +7,17 @@
   --white: #f9f9f9;
   --denim: #93aeca;
   --dark-blue: #121737;
+
+  /* New, but safe additions */
+  --bg: #f4f1ec;
+  --panel: rgba(255, 255, 255, 0.78);
+  --muted: rgba(31, 35, 40, 0.72);
+  --border: rgba(31, 35, 40, 0.12);
+  --shadow: 0 14px 40px rgba(0, 0, 0, 0.18);
+  --shadow-soft: 0 10px 28px rgba(0, 0, 0, 0.12);
+  --radius: 16px;
+  --radius-lg: 22px;
+  --max: 1100px;
 }
 
 * {
@@ -15,22 +26,35 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  min-height: 100%;
+}
+
 body {
   font-family: "Inter", sans-serif;
-  background-color: var(--white);
   color: var(--gray-dark);
   line-height: 1.6;
+  background: radial-gradient(
+      1200px 700px at 50% -20%,
+      rgba(21, 54, 35, 0.14),
+      transparent 60%
+    ),
+    radial-gradient(900px 520px at 10% 30%, rgba(0, 0, 0, 0.06), transparent 55%),
+    var(--bg);
 }
 
-header {
-  background-color: ;
-  position: static;
-  width: 100%;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
+.container {
+  width: min(var(--max), calc(100% - 32px));
+  margin: 0 auto;
+}
+
+/* TOP BAR */
 #top-bar {
   background-color: var(--green-dark);
   color: white;
@@ -42,13 +66,27 @@ header {
 #top-bar a {
   color: var(--green-light);
   text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* HEADER (fixes your empty background-color) */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(18, 23, 55, 0.18);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.16);
 }
 
 .header-inner {
+  width: min(var(--max), calc(100% - 32px));
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 20px;
+  padding: 12px 0;
   flex-wrap: wrap;
 }
 
@@ -58,14 +96,21 @@ header {
   gap: 10px;
 }
 
+.logo-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .logo img {
   height: 50px;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.25));
 }
 
 .company-name {
   font-size: 20px;
   font-weight: 700;
-  color: var(--dark-blue);
+  color: white;
   font-family: "Poppins", sans-serif;
 }
 
@@ -75,27 +120,37 @@ header {
 }
 
 .nav-links a {
-  text-decoration: none;
-  color: var(--dark-blue);
+  color: rgba(255, 255, 255, 0.92);
   font-weight: 600;
+}
+
+.nav-links a:hover {
+  opacity: 1;
 }
 
 .burger {
   display: none;
-  font-size: 28px;
+  font-size: 22px;
   cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border-radius: 12px;
+  padding: 10px 12px;
 }
 
+/* MOBILE NAV */
 @media (max-width: 768px) {
   .nav-links {
     display: none;
     position: absolute;
-    top: 70px;
+    top: 108px;
     left: 0;
     width: 100%;
     flex-direction: column;
-    background: white;
+    background: rgba(18, 23, 55, 0.92);
     padding: 10px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
   }
 
   .nav-links.active {
@@ -111,46 +166,48 @@ header {
   }
 }
 
+/* HERO (uses your existing images/hero_img.png) */
 .hero {
-  margin-top: 100px;
-  height: 90vh;
+  min-height: 58vh;
   background: url("images/hero_img.png") no-repeat center center/cover;
   position: relative;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   text-align: center;
-  padding: 0 20px;
+  padding: 60px 16px;
 }
 
-.hero::before {
-  content: "";
+.hero-overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 1;
+  inset: 0;
+  background: radial-gradient(900px 520px at 50% 30%, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.62)),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.62));
 }
 
-.hero * {
+.hero-inner {
   position: relative;
   z-index: 2;
+  width: min(900px, calc(100% - 32px));
   color: white;
+  padding: 34px 20px;
 }
 
 .hero h1 {
-  font-size: 3rem;
+  font-size: clamp(30px, 4vw, 52px);
   font-family: "Poppins", sans-serif;
   margin-bottom: 10px;
+  line-height: 1.08;
+  text-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
 }
 
 .hero p {
-  font-size: 1.25rem;
-  margin-bottom: 25px;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
   max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  text-shadow: 0 10px 22px rgba(0, 0, 0, 0.35);
 }
 
 .cta-button {
@@ -159,40 +216,63 @@ header {
   padding: 14px 28px;
   font-weight: 700;
   border: none;
-  border-radius: 6px;
+  border-radius: 14px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: transform 0.15s ease, background-color 0.3s ease;
   font-size: 1rem;
   text-decoration: none;
   display: inline-block;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.28);
 }
 
 .cta-button:hover {
   background-color: #345c13;
+  transform: translateY(-1px);
 }
 
+/* SECTIONS */
 .section {
   padding: 60px 20px;
-  max-width: 1000px;
-  margin: auto;
+}
+
+.section h2 {
   text-align: center;
+  font-family: "Poppins", sans-serif;
+  font-size: 34px;
+  margin-bottom: 14px;
+  color: var(--gray-dark);
 }
 
-.service-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+.section p {
+  text-align: center;
+  max-width: 1000px;
+  margin: 0 auto;
+  color: rgba(46, 46, 46, 0.80);
 }
 
+.color-divider {
+  height: 10px;
+  background-color: var(--green-dark);
+  width: 100%;
+}
+
+/* ABOUT HIGHLIGHTS (keeps your content, upgrades look) */
 .about-highlights {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
-  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 28px;
+  max-width: var(--max);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .highlight {
-  max-width: 250px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 16px;
+  box-shadow: var(--shadow-soft);
   text-align: center;
 }
 
@@ -213,84 +293,166 @@ header {
   color: #444;
 }
 
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 30px;
-  margin-top: 40px;
+/* SERVICES (new carousel style) */
+.services-head {
+  max-width: var(--max);
+  margin: 0 auto 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 0;
+}
+
+.services-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.svc-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: var(--shadow-soft);
+  cursor: pointer;
+  font-size: 22px;
+  color: var(--green-dark);
+}
+
+.svc-btn:hover {
+  transform: translateY(-1px);
+}
+
+.services-viewport {
+  max-width: var(--max);
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+}
+
+.services-track {
+  display: flex;
+  gap: 16px;
+  padding: 6px 2px 10px;
 }
 
 .service-card {
-  background: white;
-  border-radius: 12px;
-  padding: 30px 20px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  text-align: center;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  cursor: pointer;
 }
 
-.service-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+.service-card--media {
+  flex: 0 0 320px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.15s ease;
 }
 
-.service-card i {
-  font-size: 36px;
+.service-card--media:hover {
+  transform: translateY(-2px);
+}
+
+.card-media {
+  height: 150px;
+  background: #ddd center/cover no-repeat;
+}
+
+.card-body {
+  padding: 14px 14px 16px;
+  text-align: left;
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-title i {
   color: var(--green-dark);
-  margin-bottom: 15px;
+  font-size: 18px;
 }
 
-.service-card h3 {
+.card-body h3 {
   font-size: 1.25rem;
-  margin-bottom: 10px;
+  margin: 0;
   color: var(--gray-dark);
 }
 
-.service-card p {
-  font-size: 1rem;
+.card-body p {
+  font-size: 0.98rem;
   color: #444;
+  margin-top: 10px;
+  text-align: left;
 }
 
-.testimonials p {
-  background: #f7f7f7;
-  padding: 20px;
-  border-radius: 6px;
-  margin: 20px 0;
-  font-style: italic;
-}
-
-.contact-split {
-  background: #f9f9f9;
-  padding: 80px 20px;
-}
-
-.contact-container {
+/* Dots */
+.svc-dots {
   display: flex;
-  flex-wrap: wrap;
-  gap: 40px;
-  max-width: 1100px;
-  margin: auto;
-  align-items: flex-start;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 14px;
 }
 
-.contact-info {
-  flex: 1;
-  min-width: 280px;
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(21, 54, 35, 0.22);
 }
 
-.contact-info h2 {
-  font-size: 2rem;
-  margin-bottom: 15px;
+.dot.active {
+  background: rgba(21, 54, 35, 0.80);
+  width: 18px;
 }
 
-.contact-info ul {
+/* CONTACT (split layout) */
+.contact-split {
+  background: transparent;
+}
+
+.contact-grid {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 18px;
+  align-items: stretch;
+}
+
+.contact-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 22px;
+}
+
+.contact-card h2 {
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.contact-card p {
+  text-align: left;
+}
+
+.contact-list {
   list-style: none;
   padding: 0;
-  margin-top: 20px;
+  margin-top: 18px;
+  display: grid;
+  gap: 10px;
 }
 
-.contact-info ul li {
-  margin-bottom: 10px;
+.contact-list li {
   font-size: 1rem;
   color: #333;
   display: flex;
@@ -298,30 +460,26 @@ header {
   gap: 10px;
 }
 
-.contact-info i {
+.contact-list i {
   color: var(--green-dark);
 }
 
 .contact-form {
-  flex: 1;
-  min-width: 280px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  background: white;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  gap: 12px;
+  margin-top: 14px;
 }
 
 .contact-form input,
 .contact-form textarea {
   padding: 14px;
   border: 1px solid #ccc;
-  border-radius: 6px;
+  border-radius: 14px;
   font-size: 1rem;
   font-family: inherit;
   width: 100%;
+  background: rgba(255, 255, 255, 0.82);
 }
 
 .contact-form textarea {
@@ -333,15 +491,15 @@ header {
   width: 100%;
 }
 
-#contact button {
-  width: 100%;
-}
-.color-divider {
-  height: 10px;
-  background-color: var(--green-dark);
-  width: 100%;
+.contact-image {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.10), rgba(0, 0, 0, 0.28)),
+    url("images/hero.png") center/cover no-repeat;
 }
 
+/* FOOTER */
 footer {
   background-color: var(--green-dark);
   color: white;
@@ -350,35 +508,48 @@ footer {
   margin-top: 40px;
 }
 
-.service-card {
-  text-decoration:  none;
-  color: inherit;
-  display: block;
-  cursor: pointer;
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .about-highlights {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-image {
+    min-height: 220px;
+  }
+
+  .service-card--media {
+    flex-basis: 280px;
+  }
 }
 
-/* Lightbox popup */
+/* ------------------------------------------------------------
+   KEEP YOUR EXISTING LIGHTBOX + PAINTING PAGE STYLES (UNCHANGED)
+   ------------------------------------------------------------ */
+
+/* (optional custom lightbox overlay - safe to keep even if you use glightbox) */
 .lightbox-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.85);
+  background: rgba(0, 0, 0, 0.85);
   display: none;
   align-items: center;
   justify-content: center;
   z-index: 9999;
   padding: 24px;
 }
-
 .lightbox-overlay.open {
   display: flex;
 }
-
 .lightbox-overlay img {
   max-width: 95vw;
   max-height: 90vh;
   border-radius: 12px;
 }
-
 .lightbox-close {
   position: fixed;
   top: 18px;
@@ -407,6 +578,7 @@ footer {
   cursor: zoom-in;
 }
 
+/* keep your painting-page background (uses your file) */
 body.painting-page {
   background-image: url("images/painting-backgound-forest.png");
   background-size: cover;
@@ -415,22 +587,7 @@ body.painting-page {
   background-repeat: no-repeat;
 }
 
-html, body {
-  min-height: 100%;
-}
-
-body.painting-page{
-  background: url("images/painting-backgound-forest.png") center/cover no-repeat fixed !important;
-}
-
-.painting-page {
-  background-image: url("images/forest.jpg");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  color: white;
-}
-
+/* keep your painting header */
 .painting-header {
   text-align: center;
   padding: 80px 20px 40px;
@@ -441,11 +598,14 @@ body.painting-page{
   font-size: 42px;
   letter-spacing: 1px;
   margin-bottom: 10px;
+  color: white;
+  font-family: "Poppins", sans-serif;
 }
 
 .painting-header p {
   font-size: 18px;
   opacity: 0.9;
+  color: white;
 }
 
 .back-link {
@@ -463,11 +623,13 @@ body.painting-page{
   color: rgba(255, 255, 255, 0.9);
 }
 
-/* Lightbox arrow styling */
-.gprev, .gnext {
+/* GLightbox arrow styling (your existing tweak) */
+.gprev,
+.gnext {
   opacity: 0.55 !important;
 }
 
-.gprev:hover, .gnext:hover {
+.gprev:hover,
+.gnext:hover {
   opacity: 1 !important;
 }
