@@ -678,3 +678,9 @@ body.painting-page {
   background: transparent;
   mix-blend-mode: multiply;
 }
+/* TEMP TEST - force logo size */
+.site-header .logo img {
+  height: 95px !important;
+  width: auto !important;
+  border: 2px solid red; /* just to see it clearly */
+}
