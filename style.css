@@ -716,3 +716,9 @@ body.painting-page {
 .gnext:hover {
   opacity: 1 !important;
 }
+.hero-title {
+  margin-bottom: 8px;
+}
+.hero-subtitle {
+  margin-top: 0;
+}
