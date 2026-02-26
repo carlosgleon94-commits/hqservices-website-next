@@ -253,13 +253,11 @@ a {
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-      900px 520px at 50% 30%,
-      rgba(0, 0, 0, 0.12),
-      rgba(0, 0, 0, 0.62)
-    ),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.62));
+  background:
+    radial-gradient(900px 520px at 50% 30%, rgba(0,0,0,0.08), rgba(0,0,0,0.40)),
+    linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.35));
 }
+
 .hero {
   min-height: 58vh;
   background: url("images/hero_img.png") no-repeat center center/cover;
@@ -277,7 +275,7 @@ a {
   font-family: "Poppins", sans-serif;
   margin-bottom: 10px;
   line-height: 1.1;
-  text-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+  text-shadow: 0 6px 18px rgba(0, 0, 0, 0.65);
   opacity: 0.88;
   max-width: 1400px;
   margin-left: auto;
