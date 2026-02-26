@@ -103,15 +103,14 @@ a {
   width: auto;
   display: block;
 }
-
 .company-name {
-  font-size: 18px;
-  font-weight: 800;
-  color: var(--dark-blue);
+  font-size: 20px;
+  font-weight: 600;              /* lighter = more elegant */
   font-family: "Poppins", sans-serif;
-  letter-spacing: 0.2px;
+  letter-spacing: 0.8px;         /* premium spacing */
+  color: #1f2b2a;                /* deeper refined tone */
+  text-transform: uppercase;     /* optional but classy */
 }
-
 /* center call now */
 .header-center {
   justify-self: center;
