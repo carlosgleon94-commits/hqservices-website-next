@@ -674,3 +674,7 @@ body.painting-page {
 .gnext:hover {
   opacity: 1 !important;
 }
+.logo img {
+  background: transparent;
+  mix-blend-mode: multiply;
+}
