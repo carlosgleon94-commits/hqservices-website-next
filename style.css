@@ -70,7 +70,7 @@ a {
 
 .header-inner {
   width: 100%;
-  padding: 12px 12px;
+  padding: 4px 0px;
   position: relative; /* ✅ needed for mobile dropdown absolute positioning */
 }
 
@@ -680,7 +680,7 @@ body.painting-page {
 }
 /* TEMP TEST - force logo size */
 .site-header .logo img {
-  height: 95px;
+  height: 75px;
   width: auto;
   oblect-fit: contain;
   display: block;
