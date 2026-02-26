@@ -717,7 +717,8 @@ body.painting-page {
   opacity: 1 !important;
 }
 .hero-title {
-  margin-bottom: 8px;
+  margin-bottom: 2px;
+  line-height: 1.1;
 }
 .hero-subtitle {
   margin-top: 0;
